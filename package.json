@@ -1,0 +1,22 @@
+{
+  "dependencies": {
+    "body": "^5.1.0",
+    "body-parser": "^1.20.1",
+    "express": "^4.18.2",
+    "node-windows": "^1.0.0-beta.8",
+    "nodemon": "^2.0.20",
+    "parser": "^0.1.4",
+    "pdf-to-printer": "^5.5.0",
+    "request-promise-native": "^1.0.9"
+  },
+  "name": "express",
+  "version": "1.0.0",
+  "description": "WPU express",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "run": "nodemon app.js"
+  },
+  "author": "OmOktOm",
+  "license": "ISC"
+}
