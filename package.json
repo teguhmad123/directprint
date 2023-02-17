@@ -7,6 +7,7 @@
     "nodemon": "^2.0.20",
     "parser": "^0.1.4",
     "pdf-to-printer": "^5.5.0",
+    "pm2": "^5.2.2",
     "request-promise-native": "^1.0.9"
   },
   "name": "express",
@@ -15,7 +16,10 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "run": "nodemon app.js"
+    "run-dev": "pm2-dev start app.js",
+    "run": "pm2 start app.js --name directPrint",
+    "stop": "pm2 stop directPrint",
+    "rm": "pm2 delete directPrint"
   },
   "author": "OmOktOm",
   "license": "ISC"
