@@ -17,6 +17,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "run-dev": "pm2-dev start app.js",
+    "run-nodemon": "nodemon app.js",
     "run": "pm2 start app.js --name directPrint",
     "stop": "pm2 stop directPrint",
     "rm": "pm2 delete directPrint"
