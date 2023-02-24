@@ -21,6 +21,7 @@ const path = require("path");
 
 app
   .post("/print", (req, res) => {
+    console.log(req.body);
     let url = req.body.url; // url file pdf
     let printer = req.body.printer; // Nama printer
     let copies = req.body.copies;
@@ -43,11 +44,12 @@ app
         if (paperSize) options.paperSize = paperSize;
         if (scale) options.scale = scale;
 
-        ptp.print("./tmp/" + filename + ".pdf", options).then();
-        res.json({
-          code: "200",
-          status: "success",
-        });
+        ptp.print("./tmp/" + filename + ".pdf", options).then(
+          res.json({
+            code: "200",
+            status: "success",
+          })
+        );
       });
     });
   })
