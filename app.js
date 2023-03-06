@@ -20,7 +20,7 @@ const http = require("http");
 const path = require("path");
 
 app
-  .post("/print", (req, res) => {
+  .post("/print_old", (req, res) => {
     console.log(req.body);
     let url = req.body.url; // url file pdf
     let printer = req.body.printer; // Nama printer
@@ -61,11 +61,52 @@ app
     });
   });
 
+app
+  .post("/print", (req, res) => {
+    console.log(req.body);
+    let url = req.body.url; // url file pdf
+    let printer = req.body.printer; // Nama printer
+    let copies = req.body.copies;
+    let paperSize = req.body.paperSize; // A4, A5, Letter sesuai setting/nama di printer device
+    let scale = req.body.scale; // noscale, shrink and fit
+    let filename = generateString(5);
+    const file = fs.createWriteStream("./tmp/" + filename + ".pdf");
+    const request = http.get(url, function (response) {
+      response.pipe(file);
+
+      // after download completed close filestream
+      file.on("finish", () => {
+        file.close();
+        // console.log("Download Completed");
+
+        const options = {};
+        if (printer) options.printer = printer;
+        if (copies) options.copies = copies;
+        if (paperSize) options.paperSize = paperSize;
+        if (scale) options.scale = scale;
+
+        ptp.print("./tmp/" + filename + ".pdf", options).then(
+          res.json({
+            code: "200",
+            status: "success",
+          })
+        );
+      });
+    });
+  })
+  .on("error", function () {
+    console.log("error");
+    res.json({
+      code: "500",
+      status: "Error",
+    });
+  });
+
 async function downloadPDF(pdfURL, outputFilename) {
   let pdfBuffer = await request.get({ uri: pdfURL, encoding: null });
   console.log(pdfBuffer);
   console.log("Writing downloaded PDF file to " + outputFilename + "...");
-  fs.writeFileSync(outputFilename, pdfBuffer);
+  fs.writeFileSync("./tmp/" + outputFilename, pdfBuffer);
 }
 
 const characters =
