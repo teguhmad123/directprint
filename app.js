@@ -69,7 +69,7 @@ app
     let copies = req.body.copies;
     let paperSize = req.body.paperSize; // A4, A5, Letter sesuai setting/nama di printer device
     let scale = req.body.scale; // noscale, shrink and fit
-    let orientation = req.body.orientation; // potrait, lanscape
+    let orientation = req.body.orientation; // portrait, landscape
     let filename = generateString(5);
     const file = fs.createWriteStream("./tmp/" + filename + ".pdf");
     const request = http.get(url, function (response) {
@@ -106,7 +106,7 @@ app
 
 app
   .get("/listPrinter", (req, res) => {
-    ptp.getPrinters().then(console.log)
+    ptp.getPrinters().then(console.log);
   })
   .on("error", function () {
     console.log("error");
