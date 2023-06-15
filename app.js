@@ -106,7 +106,10 @@ app
 
 app
   .get("/listPrinter", (req, res) => {
-    ptp.getPrinters().then(console.log);
+    ptp.getPrinters().then(function (listPrinter) {
+      console.log(listPrinter);
+      res.json(listPrinter);
+    });
   })
   .on("error", function () {
     console.log("error");
